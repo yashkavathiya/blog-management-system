@@ -1,0 +1,289 @@
+{
+  "info": {
+    "name": "Blog Management API",
+    "_postman_id": "9f2bf1b4-b3f9-4b51-9d3b-2cfa043adf88",
+    "description": "Postman collection for the Blog Management System API. Set `base_url` in a Postman environment (e.g. `http://localhost:8000/api`). Use the bearer token returned by the login request for authenticated endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Blogs",
+      "item": [
+        {
+          "name": "List Blogs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/blogs",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "blogs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Blog",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Sample Blog Title",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Sample blog description",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/blogs",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "blogs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Show Blog",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/blogs/{{blog_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "blogs",
+                "{{blog_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Blog",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Updated Blog Title",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated blog description",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/blogs/{{blog_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "blogs",
+                "{{blog_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Blog",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/blogs/{{blog_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "blogs",
+                "{{blog_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Like",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/blogs/{{blog_id}}/like",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "blogs",
+                "{{blog_id}}",
+                "like"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": []
+}
+
