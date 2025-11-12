@@ -13,7 +13,13 @@ class BlogController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Blog::with('user:id,name,email')->withLikesCount();
+        // $query = Blog::with('user:id,name,email')->withLikesCount();
+        $userId = auth()->id();
+        $query = Blog::with('user:id,name,email')
+            ->withCount('likes')
+            ->withExists(['likes as is_liked_by_user' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }]);
 
         // Search functionality
         if ($request->has('search') && $request->search != '') {
@@ -40,10 +46,15 @@ class BlogController extends Controller
         $blogs = $query->paginate($perPage);
 
         // Add is_liked_by_user flag
-        $userId = auth()->id();
-        $blogs->getCollection()->transform(function ($blog) use ($userId) {
-            $blog->is_liked_by_user = $blog->isLikedBy($userId);
-            $blog->image_url = $blog->image ? asset('public/uploads/blogs/' . $blog->image) : null;
+        // $userId = auth()->id();
+        // $blogs->getCollection()->transform(function ($blog) use ($userId) {
+        //     $blog->is_liked_by_user = $blog->isLikedBy($userId);
+        //     $blog->image_url = $blog->image ? asset('public/uploads/blogs/' . $blog->image) : null;
+        //     return $blog;
+        // });
+
+        $blogs->getCollection()->transform(function ($blog) {
+            $blog->image_url = $blog->image ? asset('storage/' . $blog->image) : null;
             return $blog;
         });
 
